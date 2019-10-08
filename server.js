@@ -46,7 +46,19 @@ server.post("/", (req, res) => {
     })
 })
 
+server.delete("/:id", (req, res) => {
+    const id = req.params.id
 
+    db('accounts')
+    .where({id: id})
+    .del()
+    .then(accounts => {
+        res.status(200).json(accounts)
+    })
+    .catch(error => {
+        res.status(500).json(error)
+    })
+})
 
 
 module.exports = server;
