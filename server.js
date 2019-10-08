@@ -35,6 +35,7 @@ server.get("/:id", (req, res) => {
 
 server.post("/", (req, res) => {
     const Body = req.body
+    console.log(Body)
 
     db('accounts')
     .insert(Body)
@@ -60,5 +61,21 @@ server.delete("/:id", (req, res) => {
     })
 })
 
+server.put("/:id", (req, res) => {
+    const id = req.params.id
+    const Body = req.body
+    console.log(Body)
+    console.log(id)
+
+    db('accounts')
+    .where({id: id})
+    .update(Body)
+    .then(accounts => {
+        res.status(201).json(accounts)
+    })
+    .catch(error => {
+        res.status(500).json(error)
+    })
+})
 
 module.exports = server;
