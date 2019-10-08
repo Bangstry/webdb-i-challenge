@@ -33,6 +33,20 @@ server.get("/:id", (req, res) => {
     })
 })
 
+server.post("/", (req, res) => {
+    const Body = req.body
+
+    db('accounts')
+    .insert(Body)
+    .then(account => {
+        res.status(201).json(account)
+    })
+    .catch(error => {
+        res.status(500).json(error.message)
+    })
+})
+
+
 
 
 module.exports = server;
